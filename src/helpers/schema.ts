@@ -14,5 +14,17 @@ const schemas = {
     title: Joi.string().required().label("Project title"),
     ownerId: Joi.number().required().label("Owner"),
   }),
+  task: Joi.object({
+    billingType: Joi.string()
+      .valid("BILLABLE", "NONBILLABLE")
+      .label("Billing type"),
+    description: Joi.string(),
+    endDate: Joi.date(),
+    members: Joi.array().items(Joi.number()),
+    projectId: Joi.number().required().label("Project Id"),
+    startDate: Joi.date(),
+    title: Joi.string().required().label("Task title"),
+    userId: Joi.number().label("User"),
+  }),
 };
 export default schemas;

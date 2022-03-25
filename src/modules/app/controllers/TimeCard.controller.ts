@@ -96,7 +96,7 @@ export const createTimeCard: RequestHandler = async (
 
     data = {
       date,
-      logTime: logTimeInMinutes,
+      logTime: Math.round(logTimeInMinutes),
       projectId,
       title,
       userId,

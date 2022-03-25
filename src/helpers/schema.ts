@@ -26,5 +26,20 @@ const schemas = {
     title: Joi.string().required().label("Task title"),
     userId: Joi.number().label("User"),
   }),
+  timecard: Joi.object({
+    billingType: Joi.string()
+      .valid("BILLABLE", "NONBILLABLE")
+      .label("Billing type"),
+    date: Joi.date().required().label("Timecard date"),
+    logTime: Joi.string()
+      .pattern(/^(\d{1,2}\.\d{1,2})|(\d{1,2}\:[0-5]?[0-9])$/,'HH:MM or decimal hours')
+      .required()
+      .label("Logging time"),
+    notes: Joi.string(),
+    projectId: Joi.number().required().label("Project Id"),
+    taskId: Joi.number(),
+    title: Joi.string().required().label("Timecard title"),
+    userId: Joi.number().required().label("User"),
+  }),
 };
 export default schemas;

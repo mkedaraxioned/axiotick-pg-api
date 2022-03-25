@@ -1,5 +1,14 @@
 import Joi from "joi";
 const schemas = {
+  user: Joi.object({
+    avatar: Joi.string().uri(),
+    email: Joi.string().email(),
+    googleId: Joi.string(),
+    name: Joi.string(),
+    phone: Joi.string(),
+    role: Joi.string().valid("NORMAL", "ADMIN").label("User role"),
+    status: Joi.string().valid("ACTIVE", "INACTIVE").label("User role"),
+  }),
   project: Joi.object({
     billingType: Joi.string()
       .valid("BILLABLE", "NONBILLABLE")
@@ -32,7 +41,10 @@ const schemas = {
       .label("Billing type"),
     date: Joi.date().label("Timecard date"),
     logTime: Joi.string()
-      .pattern(/^(\d{1,2}\.\d{1,2})|(\d{1,2}\:[0-5]?[0-9])$/,'HH:MM or decimal hours') 
+      .pattern(
+        /^(\d{1,2}\.\d{1,2})|(\d{1,2}\:[0-5]?[0-9])$/,
+        "HH:MM or decimal hours"
+      )
       .label("Logging time"),
     notes: Joi.string(),
     projectId: Joi.number().label("Project Id"),

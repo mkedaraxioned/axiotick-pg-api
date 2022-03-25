@@ -1,6 +1,8 @@
 import { RequestHandler, Request, Response } from "express";
 import { createQueryBuilder, getManager } from "typeorm";
 import { User } from "../../../entity/User";
+import { UserRole } from "../../../interfaces/UserRole";
+import { UserStatus } from "../../../interfaces/UserStatus";
 
 export const loginUser: RequestHandler = async (
   req: Request | { [key: string]: any },
@@ -108,13 +110,19 @@ export const updateUser: RequestHandler = async (
   res: Response
 ) => {
   try {
-    const { name, phone, avatar, syncAvatar } = req.body;
+    const { name, phone, avatar, syncAvatar, role, status } = req.body;
     // Actual use case
     // const {
     //   picture,
     // } = req.user;
     const { id: userId } = req.params;
-    let updateData: { name?: string; phone?: string; avatar?: string } = {};
+    let updateData: {
+      name?: string;
+      phone?: string;
+      avatar?: string;
+      role?: UserRole;
+      status?: UserStatus;
+    } = {};
     const userRepository = getManager().getRepository(User);
     const userExists = await userRepository.findOne(userId);
     if (!userExists) {
@@ -123,10 +131,12 @@ export const updateUser: RequestHandler = async (
         error: "User Not Found",
       });
     }
-    if (name || phone || avatar || syncAvatar) {
+    if (name || phone || avatar || syncAvatar || role || status) {
       if (name) updateData.name = name;
       if (phone) updateData.phone = phone;
       if (avatar) updateData.avatar = avatar;
+      if (role) updateData.role = role;
+      if (status) updateData.status = status;
     }
 
     // Actual use case

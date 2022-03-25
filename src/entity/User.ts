@@ -5,15 +5,8 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from "typeorm";
-
-export enum UserRole {
-  NORMAL = "NORMAL",
-  ADMIN = "ADMIN",
-}
-export enum UserStatus {
-  ACTIVE = "ACTIVE",
-  INACTIVE = "INACTIVE",
-}
+import { UserRole } from "../interfaces/UserRole";
+import { UserStatus } from "../interfaces/UserStatus";
 
 @Entity()
 export class User {

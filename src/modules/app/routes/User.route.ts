@@ -6,6 +6,8 @@ import {
   logoutUser,
   updateUser,
 } from "../controllers/User.controller";
+import schemas from '../../../helpers/schema';
+import validateData from '../../../middlewares/validation';
 
 export const UserRoutes: Router = express.Router();
 
@@ -15,4 +17,4 @@ UserRoutes.get("/login", isUserLoggedIn, loginUser);
 
 UserRoutes.get("/logout", logoutUser);
 
-UserRoutes.patch("/:id", updateUser);
+UserRoutes.patch("/:id", validateData(schemas.user) , updateUser);
